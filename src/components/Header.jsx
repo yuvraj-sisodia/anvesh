@@ -1,18 +1,10 @@
 import React, { useState } from "react";
-import { User, CloudLightning, CheckCircle2 } from "lucide-react";
+import { CloudLightning, CheckCircle2 } from "lucide-react";
 import Logo, { LogoText } from "./Logo";
 
-export default function Header({ 
-  currentTab, 
-  setCurrentTab 
-}) {
+export default function Header() {
   const [isSaving, setIsSaving] = useState(false);
   const [toast, setToast] = useState(null);
-
-  const navLinks = [
-    { name: "Explore", tab: "explore" },
-    { name: "API Configuration", tab: "profile" }
-  ];
 
   const handleHeaderSaveOffline = () => {
     setIsSaving(true);
@@ -45,32 +37,12 @@ export default function Header({
         <div className="flex items-center justify-between h-16">
           
           {/* Logo */}
-          <div className="flex items-center gap-2 cursor-pointer" onClick={() => setCurrentTab("explore")}>
+          <div className="flex items-center gap-2 select-none">
             <Logo className="w-9 h-9" />
             <LogoText />
           </div>
 
-          {/* Navigation Links */}
-          <nav className="hidden md:flex items-center gap-1">
-            {navLinks.map((link) => {
-              const isActive = currentTab === link.tab;
-              return (
-                <button
-                  key={link.name}
-                  onClick={() => setCurrentTab(link.tab)}
-                  className={`px-3 py-2 text-sm font-semibold rounded-lg transition-all cursor-pointer ${
-                    isActive
-                      ? "text-[#8ab836] bg-[#8ab836]/10"
-                      : "text-stone-600 hover:text-stone-900 hover:bg-stone-50"
-                  }`}
-                >
-                  {link.name}
-                </button>
-              );
-            })}
-          </nav>
-
-          {/* Right Section: Utilities & Settings */}
+          {/* Right Section: Utilities */}
           <div className="flex items-center gap-4">
             
             {/* Offline PWA Button inside header */}
@@ -87,21 +59,6 @@ export default function Header({
               <CloudLightning className="w-3.5 h-3.5" />
               <span>{isSaving ? "Saving..." : "Save Route Offline"}</span>
             </button>
-
-            {/* Profile Button inside utility section */}
-            <div className="flex items-center gap-2">
-              <button 
-                onClick={() => setCurrentTab("profile")}
-                className={`p-2 rounded-lg transition-colors cursor-pointer ${
-                  currentTab === "profile" 
-                    ? "text-[#8ab836] bg-[#8ab836]/10" 
-                    : "text-stone-500 hover:text-stone-900 hover:bg-stone-50"
-                }`}
-                title="API Configuration / Settings"
-              >
-                <User className="w-4.5 h-4.5" />
-              </button>
-            </div>
 
           </div>
 

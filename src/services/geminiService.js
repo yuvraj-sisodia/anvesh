@@ -1,13 +1,12 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
 /**
- * Checks if a Google GenAI API key is available in either Env variables or LocalStorage.
+ * Checks if a Google GenAI API key is available in either Env variables.
  * @returns {boolean}
  */
 export function hasApiKey() {
   const envKey = import.meta.env.VITE_GEMINI_API_KEY;
-  const localKey = localStorage.getItem("anvesh_gemini_key");
-  return !!(envKey && envKey !== "your_google_gemini_api_key_here" || localKey);
+  return !!(envKey && envKey !== "your_google_gemini_api_key_here");
 }
 
 /**
@@ -15,9 +14,6 @@ export function hasApiKey() {
  * @returns {string|null}
  */
 export function getApiKey() {
-  const localKey = localStorage.getItem("anvesh_gemini_key");
-  if (localKey) return localKey;
-  
   const envKey = import.meta.env.VITE_GEMINI_API_KEY;
   if (envKey && envKey !== "your_google_gemini_api_key_here") return envKey;
   

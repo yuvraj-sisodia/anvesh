@@ -8,7 +8,7 @@ import { generateCulturalDiscovery, hasApiKey } from "../services/geminiService"
 import AnveshAudioVignette from "./AnveshAudioVignette";
 import AnveshDynamicMap from "./AnveshDynamicMap";
 
-export default function ExploreView({ onNavigate, onSearchPreset }) {
+export default function ExploreView() {
   const [selectedDest, setSelectedDest] = useState(null);
   const [activeResult, setActiveResult] = useState(null);
   const [loadingDiscovery, setLoadingDiscovery] = useState(false);

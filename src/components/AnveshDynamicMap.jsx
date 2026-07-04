@@ -33,6 +33,18 @@ export default function AnveshDynamicMap({ destinationName }) {
 
   return (
     <div className="bg-white border border-stone-200 rounded-3xl p-5 shadow-sm flex flex-col gap-4 w-full">
+      {/* Route Flow Animation Style */}
+      <style>{`
+        @keyframes routeFlow {
+          from { stroke-dashoffset: 20; }
+          to { stroke-dashoffset: 0; }
+        }
+        .route-flow-line {
+          stroke-dasharray: 6, 4;
+          animation: routeFlow 1.5s infinite linear;
+        }
+      `}</style>
+
       {/* Header Info */}
       <div className="flex items-center justify-between">
         <div>
@@ -96,9 +108,8 @@ export default function AnveshDynamicMap({ destinationName }) {
               d={pathD}
               fill="none"
               stroke={accessibleMode ? "#10b981" : "#8ab836"}
-              strokeWidth={accessibleMode ? "3.5" : "2"}
-              strokeDasharray={accessibleMode ? "none" : "4,4"}
-              className="transition-all duration-300"
+              strokeWidth={accessibleMode ? "3.5" : "2.5"}
+              className={`transition-all duration-300 ${accessibleMode ? "" : "route-flow-line"}`}
               style={{
                 filter: accessibleMode ? "drop-shadow(0 0 4px #10b981)" : "none"
               }}

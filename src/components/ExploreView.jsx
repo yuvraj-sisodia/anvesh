@@ -95,7 +95,7 @@ export default function ExploreView() {
         setActiveResult(result);
       } catch (err) {
         console.error("Gemini API call failed:", err);
-        setDiscoveryError("GenAI Generation failed. Falling back to pre-cached demo data.");
+        setDiscoveryError(`Gemini API Call Failed: ${err.message || err}. Falling back to pre-cached demo data. Please verify that your VITE_GEMINI_API_KEY in .env is complete and valid.`);
         // Fallback to static mock data
         fallbackToMock(name);
       } finally {
@@ -198,11 +198,11 @@ export default function ExploreView() {
                   value={searchInput}
                   onChange={(e) => setSearchInput(e.target.value)}
                   placeholder="Ask anything... (e.g. &quot;A 3-day cultural trip in Rajasthan&quot;)" 
-                  className="w-full bg-stone-50 border border-stone-200 rounded-xl px-3 py-2 text-xs text-stone-800 focus:outline-none focus:ring-2 focus:ring-[#8ab836] font-semibold"
+                  className="w-full bg-stone-50 border border-stone-200/80 rounded-xl px-3 py-2 text-xs text-stone-800 focus:outline-none focus:ring-2 focus:ring-[#8ab836]/45 focus:bg-white focus:shadow-inner font-semibold transition-all duration-300"
                 />
                 <button 
                   type="submit"
-                  className="bg-[#8ab836] hover:bg-[#729c29] text-white p-2.5 rounded-xl transition-all cursor-pointer shadow-md shrink-0"
+                  className="bg-[#8ab836] hover:bg-[#729c29] hover:shadow-[0_0_12px_rgba(138,184,54,0.45)] text-white p-2.5 rounded-xl transition-all duration-300 cursor-pointer shadow-md shrink-0 hover:scale-105 active:scale-95"
                 >
                   <Sparkles className="w-4 h-4" />
                 </button>
@@ -220,7 +220,7 @@ export default function ExploreView() {
                     key={pill.label}
                     type="button"
                     onClick={() => triggerDestination(pill.target)}
-                    className="text-[10px] font-bold text-stone-600 bg-stone-100 hover:bg-[#8ab836]/10 hover:text-[#8ab836] border border-stone-200 hover:border-[#8ab836]/20 px-2.5 py-1 rounded-full transition-colors cursor-pointer flex items-center gap-1"
+                    className="text-[10px] font-bold text-stone-600 bg-stone-100 hover:bg-[#8ab836]/10 hover:text-[#8ab836] border border-stone-250 hover:border-[#8ab836]/30 px-2.5 py-1 rounded-full transition-all duration-300 hover:-translate-y-0.5 hover:shadow-sm cursor-pointer flex items-center gap-1"
                   >
                     <span>{pill.icon}</span>
                     <span>{pill.label}</span>
@@ -471,7 +471,7 @@ export default function ExploreView() {
                     setSearchInput(`${cat.name} in ${destName}`);
                     triggerDestination(`${cat.name} in ${destName}`);
                   }}
-                  className="group cursor-pointer bg-white border border-stone-200 rounded-2xl overflow-hidden hover:border-[#8ab836]/40 hover:shadow-lg transition-all flex flex-col justify-between"
+                  className="group cursor-pointer bg-white border border-stone-200/60 rounded-2xl overflow-hidden hover:border-[#8ab836]/40 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 flex flex-col justify-between"
                 >
                   <div className="aspect-[4/3] w-full overflow-hidden relative">
                     <img 

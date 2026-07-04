@@ -206,8 +206,9 @@ export default function AnveshAudioVignette({ audioTitle, audioScript }) {
           <button 
             type="button"
             onClick={toggleMute}
-            className="p-1.5 rounded-lg border border-stone-200 bg-white hover:bg-stone-50 text-stone-500 cursor-pointer"
+            className="p-1.5 rounded-lg border border-stone-200 bg-white hover:bg-stone-50 text-stone-500 cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#8ab836]/40"
             title={muted ? "Unmute" : "Mute"}
+            aria-label={muted ? "Unmute audio narration" : "Mute audio narration"}
           >
             {muted ? <VolumeX className="w-3.5 h-3.5 text-red-500" /> : <Volume2 className="w-3.5 h-3.5" />}
           </button>
@@ -215,8 +216,9 @@ export default function AnveshAudioVignette({ audioTitle, audioScript }) {
           <button
             type="button"
             onClick={isPlaying ? handlePause : handlePlay}
-            className="w-10 h-10 rounded-full bg-[#8ab836] hover:bg-[#729c29] text-white flex items-center justify-center shadow transition-all hover:scale-105 active:scale-95 cursor-pointer"
+            className="w-10 h-10 rounded-full bg-[#8ab836] hover:bg-[#729c29] text-white flex items-center justify-center shadow transition-all hover:scale-105 active:scale-95 cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#8ab836]/40"
             title={isPlaying ? "Stop Narrator" : "Play Narrator"}
+            aria-label={isPlaying ? "Pause voice synthesis narration" : "Play voice synthesis narration"}
           >
             {isPlaying ? <Pause className="w-5 h-5 fill-white text-white" /> : <Play className="w-5 h-5 fill-white text-white translate-x-0.5" />}
           </button>
@@ -225,8 +227,9 @@ export default function AnveshAudioVignette({ audioTitle, audioScript }) {
             <button 
               type="button"
               onClick={handleStop}
-              className="p-1.5 rounded-lg border border-stone-200 bg-white hover:bg-stone-50 text-stone-500 cursor-pointer"
+              className="p-1.5 rounded-lg border border-stone-200 bg-white hover:bg-stone-50 text-stone-500 cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#8ab836]/40"
               title="Reset Audio"
+              aria-label="Reset narration to beginning"
             >
               <RotateCcw className="w-3.5 h-3.5" />
             </button>

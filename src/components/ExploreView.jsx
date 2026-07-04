@@ -464,14 +464,16 @@ export default function ExploreView() {
             {categories.map((cat) => {
               const Icon = cat.icon;
               return (
-                <div 
+                <button 
                   key={cat.name} 
+                  type="button"
                   onClick={() => {
                     const destName = activeResult ? activeResult.name : (selectedDest || "Kyoto, Japan");
                     setSearchInput(`${cat.name} in ${destName}`);
                     triggerDestination(`${cat.name} in ${destName}`);
                   }}
-                  className="group cursor-pointer bg-white border border-stone-200/60 rounded-2xl overflow-hidden hover:border-[#8ab836]/40 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 flex flex-col justify-between"
+                  className="group text-left cursor-pointer bg-white border border-stone-200/60 rounded-2xl overflow-hidden hover:border-[#8ab836]/40 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 flex flex-col justify-between focus:outline-none focus:ring-2 focus:ring-[#8ab836]/40"
+                  aria-label={`Search for ${cat.name} in ${activeResult ? activeResult.name : (selectedDest || "Kyoto, Japan")}`}
                 >
                   <div className="aspect-[4/3] w-full overflow-hidden relative">
                     <img 
@@ -487,7 +489,7 @@ export default function ExploreView() {
                     <h4 className="text-xs font-bold text-stone-900 leading-tight group-hover:text-[#8ab836] transition-colors">{cat.name}</h4>
                     <p className="text-[9px] text-stone-500 font-semibold mt-0.5 line-clamp-1">{cat.desc}</p>
                   </div>
-                </div>
+                </button>
               );
             })}
           </div>

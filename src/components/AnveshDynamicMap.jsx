@@ -136,12 +136,17 @@ export default function AnveshDynamicMap({ destinationName }) {
           {routeNodes.map((node, idx) => {
             const isHovered = hoveredNode === idx;
             return (
-              <div
+              <button
                 key={idx}
-                className="absolute transform -translate-x-1/2 -translate-y-1/2 pointer-events-auto cursor-pointer"
+                type="button"
+                className="absolute transform -translate-x-1/2 -translate-y-1/2 pointer-events-auto cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#8ab836] rounded-full"
                 style={{ left: `${(node.x / 200) * 100}%`, top: `${(node.y / 160) * 100}%` }}
                 onMouseEnter={() => setHoveredNode(idx)}
                 onMouseLeave={() => setHoveredNode(null)}
+                onFocus={() => setHoveredNode(idx)}
+                onBlur={() => setHoveredNode(null)}
+                aria-label={`Route Stop ${idx + 1}: ${node.name}`}
+                aria-expanded={isHovered}
               >
                 {/* Marker Pin */}
                 <div className={`w-5 h-5 rounded-full border flex items-center justify-center shadow-md transition-all ${
@@ -154,13 +159,13 @@ export default function AnveshDynamicMap({ destinationName }) {
 
                 {/* Floating Node Tooltip */}
                 {isHovered && (
-                  <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 bg-stone-900 text-white text-[9px] font-semibold p-2 rounded-lg shadow-lg z-30 w-36 leading-normal pointer-events-none">
+                  <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 bg-stone-900 text-white text-[9px] font-semibold p-2 rounded-lg shadow-lg z-30 w-36 leading-normal pointer-events-none text-left">
                     <span className="font-extrabold block text-stone-100">{node.name}</span>
                     <span className="text-[7px] text-[#a2d149] uppercase tracking-wider block mt-0.5">{node.type} node</span>
                     <span className="text-stone-300 block mt-1 leading-tight">{node.desc}</span>
                   </div>
                 )}
-              </div>
+              </button>
             );
           })}
         </div>

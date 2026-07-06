@@ -135,7 +135,7 @@ export default function ExploreView() {
   const isGenAIActive = hasApiKey() && !discoveryError;
 
   return (
-    <div className="w-full bg-[#fafaf9] rounded-3xl p-4 sm:p-6 border border-stone-200 shadow-sm flex flex-col gap-8 relative">
+    <div className="w-full flex flex-col gap-8 sm:gap-12 relative">
       
       {/* Toast Alert Box */}
       {toastMessage && (

@@ -7,8 +7,8 @@ export default function App() {
     <div className="min-h-screen bg-[#fafaf9] text-stone-800 flex flex-col font-sans selection:bg-[#8ab836] selection:text-white relative">
       
       {/* Floating Logo Badge */}
-      <div className="fixed top-5 left-6 z-50 flex items-center select-none bg-white/85 backdrop-blur-md px-5 py-3 rounded-2xl border border-stone-200 shadow-md">
-        <img src="/logo.png" alt="Anvesh Logo" className="h-10 object-contain" />
+      <div className="fixed top-5 left-6 z-50 flex items-center select-none bg-white/90 backdrop-blur-md px-5 py-3 rounded-2xl border border-stone-200 shadow-lg">
+        <img src="/logo.png" alt="Anvesh Logo" className="h-14 object-contain" />
       </div>
 
       {/* Main Layout Area */}

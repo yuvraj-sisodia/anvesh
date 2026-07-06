@@ -1,57 +1,26 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
-/**
- * Checks if a Google GenAI API key is available in either Env variables.
- * @returns {boolean}
- */
-export function hasApiKey() {
-  const envKey = import.meta.env.VITE_GEMINI_API_KEY;
-  const isLocalConfigured = !!(envKey && envKey !== "your_google_gemini_api_key_here");
-  // Always return true in production to indicate the serverless API proxy is active
-  return isLocalConfigured || true;
-}
+export default async function handler(req, res) {
+  // Add CORS headers
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
 
-/**
- * Gets the configured Google GenAI API key.
- * @returns {string|null}
- */
-export function getApiKey() {
-  const envKey = import.meta.env.VITE_GEMINI_API_KEY;
-  if (envKey && envKey !== "your_google_gemini_api_key_here") return envKey;
-  
-  return null;
-}
-
-/**
- * Generates cultural discovery data in real time using Google Gemini.
- * @param {string} destination - The target city / location (e.g. "Paris, France")
- * @returns {Promise<object>} The structured JSON discovery results.
- */
-export async function generateCulturalDiscovery(destination) {
-  const localKey = getApiKey();
-  if (!localKey) {
-    try {
-      const response = await fetch(`/api/discovery?destination=${encodeURIComponent(destination)}`);
-      if (!response.ok) {
-        const errData = await response.json().catch(() => ({}));
-        throw new Error(errData.error || `HTTP error ${response.status}`);
-      }
-      return await response.json();
-    } catch (error) {
-      console.error("Discovery API proxy error:", error);
-      throw new Error(`Google Gemini API Key is missing and proxy request failed: ${error.message}`);
-    }
+  if (req.method === "OPTIONS") {
+    return res.status(200).end();
   }
 
-  return await generateDirectClientDiscovery(destination, localKey);
-}
+  const { destination } = req.query;
+  if (!destination) {
+    return res.status(400).json({ error: "Destination query parameter is required" });
+  }
 
-/**
- * Generates cultural discovery data locally on the client using the local API key.
- */
-async function generateDirectClientDiscovery(destination, apiKey) {
-  // Initialize SDK
-  const ai = new GoogleGenerativeAI(apiKey);
+  const apiKey = process.env.GEMINI_API_KEY;
+  if (!apiKey) {
+    return res.status(500).json({ 
+      error: "Google Gemini API Key is missing on the server. Please configure GEMINI_API_KEY in Vercel environment variables." 
+    });
+  }
 
   // System instructions to enforce rigid formatting and high-quality cultural content
   const systemInstruction = `
@@ -114,21 +83,20 @@ async function generateDirectClientDiscovery(destination, apiKey) {
       }
     }
     
-    Ensure all text values are highly specific to ${destination}, naming authentic local landmarks, artisans, streets, and soundscapes. Do not output placeholders.
+    Ensure all text values are highly specific to \${destination}, naming authentic local landmarks, artisans, streets, and soundscapes. Do not output placeholders.
   `;
 
   try {
+    const ai = new GoogleGenerativeAI(apiKey);
     const model = ai.getGenerativeModel({ 
       model: "gemini-1.5-flash",
       systemInstruction: systemInstruction 
     });
 
     const prompt = `Generate cultural discovery data for: "${destination}"`;
-    
     const result = await model.generateContent(prompt);
     const responseText = result.response.text();
     
-    // Clean any potential markdown wrappers if the model returned them despite instructions
     const cleanJsonText = responseText
       .replace(/^```json\s*/i, "")
       .replace(/```\s*$/, "")
@@ -136,10 +104,10 @@ async function generateDirectClientDiscovery(destination, apiKey) {
       
     const parsedData = JSON.parse(cleanJsonText);
     parsedData.success = true;
-    return parsedData;
+    return res.status(200).json(parsedData);
 
   } catch (error) {
-    console.error("Gemini API execution error:", error);
-    throw new Error(`GenAI Generation Failed: ${error.message}`);
+    console.error("Gemini API server execution error:", error);
+    return res.status(500).json({ error: `GenAI Generation Failed: ${error.message}` });
   }
 }

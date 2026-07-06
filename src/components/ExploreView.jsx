@@ -228,7 +228,7 @@ export default function ExploreView() {
 
               <div className="absolute top-4 left-0 w-[130px] bg-stone-50 p-2 pb-4 rounded-xl shadow-lg border border-stone-200 transform -rotate-6 hover:rotate-0 hover:scale-105 hover:z-30 transition-all duration-300 cursor-pointer">
                 <div className="aspect-square rounded-lg overflow-hidden bg-stone-200 mb-2 relative">
-                  <img src="https://images.unsplash.com/photo-1603258591238-d6a0cf2c12ab?auto=format&fit=crop&w=200&q=80" alt="Hawa Mahal" className="w-full h-full object-cover" />
+                  <img src="https://images.unsplash.com/photo-1524230699147-7e6f131d021e?auto=format&fit=crop&w=200&q=80" alt="Hawa Mahal" className="w-full h-full object-cover" />
                   <span className="absolute top-1 left-1 bg-amber-500 text-white text-[7px] font-bold px-1.5 py-0.5 rounded">HERITAGE</span>
                 </div>
                 <h5 className="text-[9px] font-bold text-stone-900 leading-none">Hawa Mahal</h5>
@@ -237,7 +237,7 @@ export default function ExploreView() {
 
               <div className="absolute top-24 left-24 w-[140px] bg-stone-50 p-2 pb-3 rounded-xl shadow-2xl border border-[#8ab836]/30 transform rotate-6 hover:rotate-0 hover:scale-105 hover:z-30 transition-all duration-300 cursor-pointer">
                 <div className="aspect-square rounded-lg overflow-hidden bg-stone-200 mb-2 relative">
-                  <img src="https://images.unsplash.com/photo-1602643163983-ed0babc39797?auto=format&fit=crop&w=200&q=80" alt="Udaipur" className="w-full h-full object-cover" />
+                  <img src="https://images.unsplash.com/photo-1615836245337-f5b9b2303f10?auto=format&fit=crop&w=200&q=80" alt="Udaipur" className="w-full h-full object-cover" />
                   <span className="absolute top-1 left-1 bg-[#8ab836] text-white text-[7px] font-bold px-1.5 py-0.5 rounded">AI RECOMMENDS</span>
                 </div>
                 <h5 className="text-[9px] font-extrabold text-[#8ab836] leading-none">Udaipur</h5>

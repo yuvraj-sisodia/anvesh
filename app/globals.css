@@ -1,0 +1,258 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&family=JetBrains+Mono:wght@400;500&display=swap');
+
+/* ─── Tailwind v4 Theme ─── */
+@theme {
+  --color-marigold: #FFC107;
+  --color-marigold-glow: #FFD54F;
+  --color-slate-900: #0B0F19;
+  --color-slate-800: #111827;
+  --color-glass-card: rgba(15, 23, 42, 0.45);
+  
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-serif: 'Playfair Display', Georgia, serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  --animate-fade-in: fadeIn 0.5s ease-out forwards;
+  --animate-slide-up: slideUp 0.5s ease-out forwards;
+  --animate-neon-flicker: neonFlicker 1.5s ease-in-out infinite;
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes neonFlicker {
+    0%, 100% {
+      box-shadow: 0 0 5px #FFC107, 0 0 15px #FFC107, inset 0 0 5px rgba(255,193,7,0.1);
+    }
+    50% {
+      box-shadow: 0 0 8px #FFC107, 0 0 25px #FFC107, inset 0 0 10px rgba(255,193,7,0.2);
+    }
+  }
+}
+
+/* ─── Custom Styles ─── */
+:root {
+  --bg: #0b121f; /* Deep slate-navy base background from mockup */
+  --card-bg: rgba(14, 22, 38, 0.45); /* Frosted dark-blue glass matching mockup cards */
+  --border-color: rgba(56, 189, 248, 0.12); /* Ice-blue fine border */
+  --accent: #38BDF8;
+  --text-primary: #F3F4F6;
+  --text-secondary: #9CA3AF;
+  --text-muted: #4B5563;
+
+  /* Ambient light blue texture glows */
+  --glow-color-1: rgba(56, 189, 248, 0.16);
+  --glow-color-2: rgba(56, 189, 248, 0.10);
+  --glow-color-3: rgba(14, 165, 233, 0.03);
+  --grid-dot-color: rgba(56, 189, 248, 0.07);
+}
+
+.midnight-mode {
+  --bg: #090a0f; /* Midnight dark nocturnal base */
+  --card-bg: rgba(20, 16, 8, 0.55); /* Amber/gold tinted glass */
+  --border-color: rgba(255, 193, 7, 0.14); /* Gold border */
+  --accent: #FFC107;
+
+  /* Midnight mode ambient glows */
+  --glow-color-1: rgba(255, 193, 7, 0.11);
+  --glow-color-2: rgba(255, 193, 7, 0.07);
+  --glow-color-3: rgba(217, 119, 6, 0.02);
+  --grid-dot-color: rgba(255, 193, 7, 0.04);
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text-primary);
+  font-family: 'Inter', system-ui, sans-serif;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ─── Ambient Glow Spots & Grid Overlay ─── */
+.glow-spot-1 {
+  position: absolute;
+  top: -10%;
+  left: -10%;
+  width: 55%;
+  height: 45%;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--glow-color-1) 0%, var(--glow-color-3) 50%, rgba(0, 0, 0, 0) 100%);
+  filter: blur(90px);
+  pointer-events: none;
+  z-index: 0;
+  transition: background 0.7s ease;
+}
+
+.glow-spot-2 {
+  position: absolute;
+  top: 20%;
+  right: -10%;
+  width: 50%;
+  height: 55%;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--glow-color-2) 0%, var(--glow-color-3) 50%, rgba(0, 0, 0, 0) 100%);
+  filter: blur(90px);
+  pointer-events: none;
+  z-index: 0;
+  transition: background 0.7s ease;
+}
+
+.glow-spot-3 {
+  position: absolute;
+  bottom: 10%;
+  left: 10%;
+  width: 55%;
+  height: 45%;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--glow-color-1) 0%, var(--glow-color-3) 50%, rgba(0, 0, 0, 0) 100%);
+  filter: blur(90px);
+  pointer-events: none;
+  z-index: 0;
+  transition: background 0.7s ease;
+}
+
+.glow-spot-4 {
+  position: absolute;
+  bottom: 5%;
+  right: 5%;
+  width: 40%;
+  height: 40%;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--glow-color-2) 0%, var(--glow-color-3) 50%, rgba(0, 0, 0, 0) 100%);
+  filter: blur(90px);
+  pointer-events: none;
+  z-index: 0;
+  transition: background 0.7s ease;
+}
+
+.grid-overlay {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(var(--grid-dot-color) 1px, transparent 1px);
+  background-size: 32px 32px;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.8;
+  transition: background-image 0.7s ease;
+}
+
+/* ─── Glassmorphism & Custom scrollbars ─── */
+.glass-panel {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 24px;
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  transition: border-color 0.4s ease, box-shadow 0.4s ease, background 0.4s ease;
+}
+
+.glass-panel:hover {
+  border-color: rgba(56, 189, 248, 0.25);
+  box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.45), 0 0 15px rgba(56, 189, 248, 0.06);
+}
+
+.midnight-mode .glass-panel:hover {
+  border-color: rgba(255, 193, 7, 0.25);
+  box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.45), 0 0 15px rgba(255, 193, 7, 0.06);
+}
+
+.glass-panel:hover {
+  border-color: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+}
+
+.midnight-mode .glass-panel:hover {
+  border-color: rgba(255, 193, 7, 0.25);
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent);
+}
+
+/* ─── Custom UI Utilities ─── */
+.input-glass {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 10px 14px;
+  font-size: 14px;
+  color: #fff;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.input-glass:focus {
+  border-color: var(--accent);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+/* ─── Itinerary vertical line trace ─── */
+.timeline-line {
+  position: absolute;
+  left: 20px;
+  top: 32px;
+  bottom: 32px;
+  width: 2px;
+  background: linear-gradient(to bottom, var(--accent) 0%, rgba(255, 255, 255, 0.05) 100%);
+}
+
+.timeline-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--bg);
+  border: 2px solid var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  transition: all 0.3s ease;
+}
+
+.timeline-dot::after {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.timeline-item:hover .timeline-dot::after {
+  opacity: 1;
+}
+
+/* ─── Neon Arcade Overlay ─── */
+.arcade-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(4, 8, 15, 0.98);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.2s ease-out;
+}
+
+.neon-border {
+  border: 2px solid var(--accent);
+  animation: neonFlicker 1.5s ease-in-out infinite;
+}

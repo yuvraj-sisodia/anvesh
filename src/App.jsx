@@ -1,25 +1,18 @@
 import React from "react";
-import Header from "./components/Header";
 import ExploreView from "./components/ExploreView";
 import { Sparkles, Heart } from "lucide-react";
 
 export default function App() {
   return (
-    <div className="min-h-screen bg-[#fafaf9] text-stone-800 flex flex-col font-sans selection:bg-[#8ab836] selection:text-white">
+    <div className="min-h-screen bg-[#fafaf9] text-stone-800 flex flex-col font-sans selection:bg-[#8ab836] selection:text-white relative">
       
-      {/* Premium Header Switcher */}
-      <Header />
+      {/* Floating Logo Badge */}
+      <div className="fixed top-5 left-6 z-50 flex items-center select-none bg-white/85 backdrop-blur-md px-5 py-3 rounded-2xl border border-stone-200 shadow-md">
+        <img src="/logo.png" alt="Anvesh Logo" className="h-10 object-contain" />
+      </div>
 
       {/* Main Layout Area */}
-      <main className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 py-6 flex-grow w-full">
-        
-        {/* Banner Notification */}
-        <div className="mb-6 p-4 bg-[#8ab836]/10 border border-[#8ab836]/20 rounded-2xl flex items-center gap-3">
-          <Sparkles className="h-5 w-5 text-[#8ab836] shrink-0" />
-          <p className="text-xs sm:text-sm text-stone-700 font-semibold leading-relaxed">
-            Welcome to Anvesh — your Gen AI powered travel companion. Simply type a destination name (like "Kyoto, Japan" or "Mumbai, India") to generate a rich cultural guide, live route mapping, and speech narration!
-          </p>
-        </div>
+      <main className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-6 flex-grow w-full">
 
         {/* Tab View Render */}
         <div className="w-full transition-all animate-in fade-in duration-300">

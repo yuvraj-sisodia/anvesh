@@ -1,7 +1,8 @@
 import React, { useState, useRef } from "react";
 import { 
   MapPin, Sparkles, Star, Route, Globe, Users, ArrowRight,
-  BookOpen, Utensils, Calendar, Compass, Leaf, Palette, Heart, CheckCircle2, Navigation, CloudLightning, ShieldAlert
+  BookOpen, Utensils, Calendar, Compass, Leaf, Palette, Heart, CheckCircle2, Navigation, CloudLightning, ShieldAlert,
+  Volume2
 } from "lucide-react";
 import { DESTINATIONS } from "../data/mockData";
 import { generateCulturalDiscovery, hasApiKey } from "../services/geminiService";
@@ -18,6 +19,7 @@ export default function ExploreView() {
   const [toastMessage, setToastMessage] = useState(null);
   
   const resultsRef = useRef(null);
+  const searchInputRef = useRef(null);
 
   const stats = [
     { icon: Route, value: "10K+", label: "Destinations" },
@@ -154,20 +156,21 @@ export default function ExploreView() {
             className="w-full h-full object-cover opacity-80"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-stone-950/85 via-stone-900/50 to-transparent" />
-          <div className="absolute inset-0 bg-gradient-to-t from-stone-950 via-stone-950/20 to-transparent" />
         </div>
 
-        {/* Floating hot air balloons */}
-        <div className="absolute top-10 left-[45%] w-10 h-14 opacity-60 z-0 select-none hidden md:block">
-          <span className="text-4xl">🎈</span>
+        {/* Hand-written text centered in the hero */}
+        <div className="absolute top-[8%] left-[52%] z-20 transform -rotate-12 hidden lg:block select-none pointer-events-none">
+          <span className="font-handwritten text-xl text-stone-200 tracking-wide block">
+            Not just trips, Real experiences!
+          </span>
+          <svg className="w-12 h-6 text-stone-300 ml-12 mt-1" viewBox="0 0 50 20" fill="none">
+            <path d="M2,2 C15,10 35,8 45,18 M40,10 L45,18 L35,18" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+          </svg>
         </div>
 
-        {/* Top Floating Badge */}
-        <div className="relative z-10">
-          <div className="inline-flex items-center gap-1.5 bg-[#8ab836]/25 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-[#8ab836]/30 text-white text-[10px] font-extrabold tracking-wider uppercase">
-            <span className="text-[#a2d149]">✨</span> AI-Powered Discovery
-          </div>
-        </div>
+
+
+
 
         {/* Hero split layout */}
         <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center mt-6">
@@ -194,6 +197,7 @@ export default function ExploreView() {
               </label>
               <div className="flex items-center gap-2">
                 <input 
+                  ref={searchInputRef}
                   type="text" 
                   value={searchInput}
                   onChange={(e) => setSearchInput(e.target.value)}
@@ -207,44 +211,16 @@ export default function ExploreView() {
                   <Sparkles className="w-4 h-4" />
                 </button>
               </div>
-              
-              {/* Filters list */}
-              <div className="flex flex-wrap gap-1.5 mt-3">
-                {[
-                  { label: "Weekend Getaway", icon: "🌴", target: "Mumbai, India" },
-                  { label: "Budget Trip", icon: "🪙", target: "Jaipur, India" },
-                  { label: "Cultural Experience", icon: "⛩️", target: "Kyoto, Japan" },
-                  { label: "Family Friendly", icon: "👨‍👩‍👧", target: "Udaipur, India" }
-                ].map((pill) => (
-                  <button 
-                    key={pill.label}
-                    type="button"
-                    onClick={() => triggerDestination(pill.target)}
-                    className="text-[10px] font-bold text-stone-600 bg-stone-100 hover:bg-[#8ab836]/10 hover:text-[#8ab836] border border-stone-250 hover:border-[#8ab836]/30 px-2.5 py-1 rounded-full transition-all duration-300 hover:-translate-y-0.5 hover:shadow-sm cursor-pointer flex items-center gap-1"
-                  >
-                    <span>{pill.icon}</span>
-                    <span>{pill.label}</span>
-                  </button>
-                ))}
-              </div>
             </form>
           </div>
 
           {/* Right Column: Polaroids */}
           <div className="lg:col-span-5 relative flex flex-col items-center justify-center min-h-[380px] w-full mt-8 lg:mt-0">
-            <div className="absolute -top-10 left-4 z-20 transform -rotate-12 hidden md:block">
-              <span className="font-handwritten text-xl text-stone-200 tracking-wide block">
-                Not just trips, Real experiences!
-              </span>
-              <svg className="w-12 h-6 text-stone-300 ml-12 mt-1" viewBox="0 0 50 20" fill="none">
-                <path d="M2,2 C15,10 35,8 45,18 M40,10 L45,18 L35,18" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-              </svg>
-            </div>
 
             <div className="relative w-full max-w-[280px] h-[300px]">
               <div className="absolute top-0 right-0 w-[140px] bg-stone-50 p-2 pb-4 rounded-xl shadow-lg border border-stone-200 transform rotate-12 hover:rotate-0 hover:scale-105 hover:z-30 transition-all duration-300 cursor-pointer">
                 <div className="aspect-square rounded-lg overflow-hidden bg-stone-200 mb-2 relative">
-                  <img src="https://images.unsplash.com/photo-1596402184320-417e7178b2cd?auto=format&fit=crop&w=200&q=80" alt="Pushkar" className="w-full h-full object-cover" />
+                  <img src="https://images.unsplash.com/photo-1568849676085-51415703900f?auto=format&fit=crop&w=200&q=80" alt="Pushkar" className="w-full h-full object-cover" />
                   <span className="absolute top-1 left-1 bg-[#8ab836] text-white text-[7px] font-bold px-1.5 py-0.5 rounded">CULTURE</span>
                 </div>
                 <h5 className="text-[9px] font-bold text-stone-900 leading-none">Pushkar Camel Fair</h5>
@@ -252,23 +228,16 @@ export default function ExploreView() {
 
               <div className="absolute top-4 left-0 w-[130px] bg-stone-50 p-2 pb-4 rounded-xl shadow-lg border border-stone-200 transform -rotate-6 hover:rotate-0 hover:scale-105 hover:z-30 transition-all duration-300 cursor-pointer">
                 <div className="aspect-square rounded-lg overflow-hidden bg-stone-200 mb-2 relative">
-                  <img src="https://images.unsplash.com/photo-1599661046289-e31897846e41?auto=format&fit=crop&w=200&q=80" alt="Hawa Mahal" className="w-full h-full object-cover" />
+                  <img src="https://images.unsplash.com/photo-1603258591238-d6a0cf2c12ab?auto=format&fit=crop&w=200&q=80" alt="Hawa Mahal" className="w-full h-full object-cover" />
                   <span className="absolute top-1 left-1 bg-amber-500 text-white text-[7px] font-bold px-1.5 py-0.5 rounded">HERITAGE</span>
                 </div>
                 <h5 className="text-[9px] font-bold text-stone-900 leading-none">Hawa Mahal</h5>
               </div>
 
-              <div className="absolute bottom-6 right-8 w-[130px] bg-stone-50 p-2 pb-4 rounded-xl shadow-lg border border-stone-200 transform -rotate-12 hover:rotate-0 hover:scale-105 hover:z-30 transition-all duration-300 cursor-pointer">
-                <div className="aspect-square rounded-lg overflow-hidden bg-stone-200 mb-2 relative">
-                  <img src="https://images.unsplash.com/photo-1589301760014-d929f3979dbc?auto=format&fit=crop&w=200&q=80" alt="Dal Baati" className="w-full h-full object-cover" />
-                  <span className="absolute top-1 left-1 bg-orange-500 text-white text-[7px] font-bold px-1.5 py-0.5 rounded">LOCAL FOOD</span>
-                </div>
-                <h5 className="text-[9px] font-bold text-stone-900 leading-none">Dal Baati Churma</h5>
-              </div>
 
               <div className="absolute top-24 left-24 w-[140px] bg-stone-50 p-2 pb-3 rounded-xl shadow-2xl border border-[#8ab836]/30 transform rotate-6 hover:rotate-0 hover:scale-105 hover:z-30 transition-all duration-300 cursor-pointer">
                 <div className="aspect-square rounded-lg overflow-hidden bg-stone-200 mb-2 relative">
-                  <img src="https://images.unsplash.com/photo-1585135497273-1a86b09fe70e?auto=format&fit=crop&w=200&q=80" alt="Udaipur" className="w-full h-full object-cover" />
+                  <img src="https://images.unsplash.com/photo-1602643163983-ed0babc39797?auto=format&fit=crop&w=200&q=80" alt="Udaipur" className="w-full h-full object-cover" />
                   <span className="absolute top-1 left-1 bg-[#8ab836] text-white text-[7px] font-bold px-1.5 py-0.5 rounded">AI RECOMMENDS</span>
                 </div>
                 <h5 className="text-[9px] font-extrabold text-[#8ab836] leading-none">Udaipur</h5>
@@ -283,38 +252,12 @@ export default function ExploreView() {
               </div>
             </div>
 
-            {/* AI Cute Robot */}
-            <div className="absolute -bottom-4 right-4 z-20 w-16 h-16">
-              <svg viewBox="0 0 64 64" className="w-full h-full drop-shadow-md">
-                <circle cx="10" cy="32" r="4" fill="#a2d149" />
-                <circle cx="54" cy="32" r="4" fill="#a2d149" />
-                <path d="M32 16v-8" stroke="#8ab836" strokeWidth="3" />
-                <circle cx="32" cy="6" r="3" fill="#a2d149" />
-                <rect x="14" y="16" width="36" height="32" rx="14" fill="white" stroke="#e5e5e0" strokeWidth="2" />
-                <rect x="18" y="22" width="28" height="20" rx="6" fill="#1c1917" />
-                <circle cx="26" cy="32" r="3" fill="#a2d149" />
-                <circle cx="38" cy="32" r="3" fill="#a2d149" />
-                <path d="M28 38h8" stroke="#8ab836" strokeWidth="2" strokeLinecap="round" />
-              </svg>
-            </div>
+
           </div>
         </div>
       </div>
 
-      {/* Stats Bar */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 py-4 border-b border-stone-200">
-        {stats.map(({ icon: Icon, value, label }) => (
-          <div key={label} className="flex items-center gap-3">
-            <div className="p-2.5 rounded-full bg-white border border-[#8ab836]/20 text-[#8ab836] shadow-sm flex items-center justify-center">
-              <Icon className="w-4 h-4" />
-            </div>
-            <div>
-              <span className="text-base sm:text-lg font-extrabold text-stone-900 block leading-tight">{value}</span>
-              <span className="text-[9px] text-stone-400 font-bold tracking-wider uppercase block">{label}</span>
-            </div>
-          </div>
-        ))}
-      </div>
+
 
       {/* 2.5. DYNAMIC AI CULTURAL DISCOVERY RESULTS PANEL */}
       {selectedDest && (
@@ -361,17 +304,6 @@ export default function ExploreView() {
                       {activeResult.location} • {activeResult.coordinates}
                     </span>
                   </div>
-                </div>
-                
-                <div className="flex gap-2 shrink-0">
-                  <button 
-                    onClick={handleSaveOffline}
-                    disabled={isSaving}
-                    className="px-4 py-2 border border-[#8ab836]/30 bg-white hover:bg-stone-50 text-[#8ab836] rounded-xl text-xs font-bold flex items-center gap-1.5 transition-all shadow-sm cursor-pointer disabled:opacity-50"
-                  >
-                    <span className="text-xs">💾</span>
-                    <span>{isSaving ? "Saving..." : "Save Route Offline"}</span>
-                  </button>
                 </div>
               </div>
 
@@ -530,15 +462,38 @@ export default function ExploreView() {
                   <p className="text-[9px] text-stone-500 font-semibold mt-1">Authentic & Unique</p>
                 </div>
               </div>
+
+              <div className="flex gap-3 items-start">
+                <div className="p-2 rounded-xl bg-white text-[#8ab836] border border-[#8ab836]/20 flex items-center justify-center shrink-0">
+                  <Volume2 className="w-4 h-4" />
+                </div>
+                <div>
+                  <h4 className="text-xs font-bold text-stone-900 leading-none">Speech Narration (TTS)</h4>
+                  <p className="text-[9px] text-stone-500 font-semibold mt-1">Listen to immersive local history audio guides</p>
+                </div>
+              </div>
+
+              <div className="flex gap-3 items-start">
+                <div className="p-2 rounded-xl bg-white text-[#8ab836] border border-[#8ab836]/20 flex items-center justify-center shrink-0">
+                  <Route className="w-4 h-4" />
+                </div>
+                <div>
+                  <h4 className="text-xs font-bold text-stone-900 leading-none">Comfort & Accessibility Paths</h4>
+                  <p className="text-[9px] text-stone-500 font-semibold mt-1">Find custom routes mapped to comfort levels</p>
+                </div>
+              </div>
             </div>
           </div>
 
           <button 
             type="button"
             onClick={() => {
-              const destName = activeResult ? activeResult.name : (selectedDest || "Kyoto, Japan");
-              setSearchInput(`A 3-day detailed cultural itinerary for ${destName}`);
-              triggerDestination(`A 3-day detailed cultural itinerary for ${destName}`);
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+              setTimeout(() => {
+                if (searchInputRef.current) {
+                  searchInputRef.current.focus();
+                }
+              }, 400);
             }}
             className="w-full py-2.5 mt-6 bg-[#8ab836] hover:bg-[#729c29] text-white rounded-xl text-xs font-extrabold flex items-center justify-center gap-1.5 transition-all shadow cursor-pointer"
           >
@@ -548,39 +503,7 @@ export default function ExploreView() {
         </div>
       </div>
 
-      {/* Bottom Trust Bar */}
-      <div className="flex flex-col md:flex-row items-center justify-between border-t border-stone-200 pt-6 gap-4">
-        <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-stone-400 font-bold text-xs">
-          <span className="text-[9px] text-stone-400 uppercase tracking-widest block font-extrabold mr-2">Trusted by explorers:</span>
-          <span>Google</span>
-          <span>airbnb</span>
-          <span>Tripadvisor</span>
-          <span>booking.com</span>
-          <span>lonely planet</span>
-          <span>Expedia</span>
-        </div>
 
-        <div className="flex items-center gap-2">
-          <div className="flex -space-x-2">
-            {[
-              "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=64&q=80",
-              "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=64&q=80",
-              "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?auto=format&fit=crop&w=64&q=80",
-              "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=64&q=80"
-            ].map((src, i) => (
-              <img 
-                key={i} 
-                src={src} 
-                alt="Traveler avatar" 
-                className="w-6 h-6 rounded-full border-2 border-white object-cover" 
-              />
-            ))}
-          </div>
-          <span className="text-[10px] text-stone-500 font-bold">
-            Join 2M+ travelers who explore better 💚
-          </span>
-        </div>
-      </div>
 
     </div>
   );
